@@ -1,0 +1,75 @@
+﻿var TestCase_1 = require("TestCase_1");
+
+function TestTwo(){
+  
+  const url = "https://www.hollandandbarrett.com/en-au/"
+  TestCase_1.OpenWebBrowserUrl(url);
+  
+  // wait for user to login
+  Login();
+  
+  // Add any Vitamin C products from 'Vitamins & Supplements' to the basket
+  SearchProduct("vitamin c");
+  AddToBasket();
+  
+  // Add any Vegan Chocolate products from 'Vegan' to the basket.
+  SearchProduct("vegan chocolate");
+  AddToBasket();
+  
+  // navigate to basket
+  Aliases.browser.pageVitaminCTabletsSupplementsSh.linkBasket.textnodeBasket.Click();
+  
+  // Verify both the products are added to the basket.
+  VerifyNoOfProductsInBasket("2");  
+
+  TestCase_1.CloseBrowser();
+}
+
+function VerifyNoOfProductsInBasket(number){
+  // Verify the products are added to the basket
+  var addedProducts = Aliases.browser.pageBasket.itemCount;
+  //var addedProducts = page.FindElementsByXPath("//div[contains(@class,'basket__container-items')]/section/div/article");
+  if (addedProducts.Count == number) {
+      Log.Message("Products are added to the basket.");
+  } else {
+      Log.Warning("Products verification failed.");
+  }
+}
+
+function AddToBasket(){
+  let productToAdd1 = Aliases.browser.pageVitaminCTabletsSupplementsSh;
+  productToAdd1.linkBuy1Get1HalfPrice.buttonAddToBasket.Click();
+}
+
+function SearchProduct(productName) {
+  // search for the produc, provided
+  let search = Aliases.browser.productSearch;
+  var vitaminCProduct = search.searchbox;
+  vitaminCProduct.Click();
+  vitaminCProduct.SetText(productName);
+  // click on search icon
+  search.button.Click();
+}
+
+function Login(){
+  let page = Aliases.browser.pageDashboard; 
+
+  // Click on Rewards section
+  var rewardsLink = page.sectionMyAccount.linkRewards.textnodeRewards;
+  rewardsLink.Click(); // Wait for the Rewards section to load
+  page.wait();
+
+  // Login with username & password
+  let textbox = page.sectionMyAccount.formEmailAddress;
+  let emailAddress = textbox.textboxEmailAddress;
+  emailAddress.Click();
+  emailAddress.SetText("address11@gmail.com");
+  
+  let passwordBox = textbox.passwordboxPassword;
+  passwordBox.Click();
+  passwordBox.SetText(Project.Variables.Password1);
+  
+  textbox.buttonAction.ClickButton();
+  page = browser.pageOverview;
+  page.Wait();
+}

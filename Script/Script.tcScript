@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root signature="{9252F941-DB23-4FCA-AA50-858B33BB4A19}" version="11.40">
+	<children>
+		<child name="TestCase_1" key="{13699CC0-8788-4C36-9A25-5E607842273E}" path="TestCase_1.js" />
+		<child name="TestCase_2" key="{3C6C66F1-04E2-4FD2-9667-1E4054221920}" path="TestCase_2.js" />
+		<child name="TestCase_3" key="{AC99A7C4-A17A-4AD7-8EA3-56B1FD446310}" path="TestCase_3.js" />
+	</children>
+</Root>
